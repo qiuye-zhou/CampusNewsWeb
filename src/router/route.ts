@@ -6,8 +6,7 @@ import SidebarLayout from '../layout/sidebar/index.vue'
 import SetupLayout from '../layout/setup-view.vue'
 import LayRouterView from '../layout/router-view.vue'
 import {
-    Analyze, Notes, Article, Dashboard, Files, Friends, Maintain, Other,
-    Pages, Projects, EyeIcon, PencilAltIcon, PuzzlePieceIcon, TopicIcon,
+    Analyze, Notes, Article, Dashboard, Files, Friends, Maintain, Other, EyeIcon, PencilAltIcon, PuzzlePieceIcon,
     MarkdownIcon, UndoAltIcon, LogIcon
 } from '../components/icons'
 import { markRaw } from 'vue'
@@ -26,7 +25,7 @@ export const routeForMenu: Array<RouteRecordRaw> = [
         path: '/posts',
         name: RouteName.Post,
         meta: {
-            title: '博文',
+            title: '新闻管理',
             icon: markRaw(Article)
         },
         redirect: '/posts/view?page=1',
@@ -36,7 +35,7 @@ export const routeForMenu: Array<RouteRecordRaw> = [
                 path: 'view',
                 name: RouteName.ViewPost,
                 meta: {
-                    title: '管理文章',
+                    title: '管理新闻',
                     icon: markRaw(EyeIcon),
                     query: { page: 1 }
                 },
@@ -46,7 +45,7 @@ export const routeForMenu: Array<RouteRecordRaw> = [
                 path: 'edit',
                 name: RouteName.EditPost,
                 meta: {
-                    title: '撰写文章',
+                    title: '撰写新闻',
                     icon: markRaw(PencilAltIcon)
                 },
                 props: true,
@@ -64,116 +63,45 @@ export const routeForMenu: Array<RouteRecordRaw> = [
         ]
     },
     {
-        path: '/notes',
+        path: '/examine',
         name: RouteName.Note,
         meta: {
-            title: '记录',
+            title: '审核',
             icon: markRaw(Notes)
         },
-        redirect: '/notes/view?page=1',
+        redirect: '/examine/view?page=1',
         component: LayRouterView,
         children: [
             {
                 path: 'view',
-                name: 'view-notes',
+                name: 'view-examine',
                 meta: {
-                    title: '管理记录',
+                    title: '待审核',
                     icon: markRaw(EyeIcon),
                     query: { page: 1 }
                 },
-                component: () => import('../views/manage-notes/list.vue')
+                component: () => import('../views/manage-examine/list.vue')
             },
             {
                 path: 'edit',
                 name: RouteName.EditNote,
                 meta: {
-                    title: '撰写记录',
+                    title: '已审核',
                     icon: markRaw(PencilAltIcon)
                 },
-                component: () => import('../views/manage-notes/edit.vue')
+                component: () => import('../views/manage-examine/edit.vue')
             },
-            {
-                path: 'topic',
-                name: RouteName.Topic,
-                meta: {
-                    title: '专栏',
-                    icon: markRaw(TopicIcon)
-                },
-                component: () => import('../views/manage-notes/topic.vue')
-            }
         ]
     },
     {
-        path: '/pages',
-        name: RouteName.Page,
-        meta: {
-            title: '页面',
-            icon: markRaw(Pages)
-        },
-        redirect: '/pages/list?page=1',
-        component: LayRouterView,
-        children: [
-            {
-                path: 'list',
-                name: RouteName.ListPage,
-                meta: {
-                    title: '管理页面',
-                    icon: markRaw(EyeIcon),
-                    query: { page: 1 }
-                },
-                component: () => import('../views/manage-pages/list.vue')
-            },
-            {
-                path: 'edit',
-                name: RouteName.EditPage,
-                meta: {
-                    title: '编辑页面',
-                    icon: markRaw(PencilAltIcon)
-                },
-                component: () => import('../views/manage-pages/edit.vue')
-            }
-        ]
-    },
-    {
-        path: '/projects',
-        name: RouteName.Project,
-        meta: {
-            title: '项目',
-            icon: markRaw(Projects)
-        },
-        redirect: '/projects/list?page=1',
-        component: LayRouterView,
-        children: [
-            {
-                path: 'list',
-                name: RouteName.ListProject,
-                meta: {
-                    title: '项目列表',
-                    icon: markRaw(EyeIcon),
-                    query: { page: 1 }
-                },
-                component: () => import('../views/manage-project/list.vue')
-            },
-            {
-                path: 'edit',
-                name: RouteName.EditProject,
-                meta: {
-                    title: '创建项目',
-                    icon: markRaw(PencilAltIcon)
-                },
-                component: () => import('../views/manage-project/edit.vue')
-            }
-        ]
-    },
-    {
-        path: '/friends',
+        path: '/account',
         name: RouteName.Friend,
         meta: {
-            title: '朋友们',
+            title: '帐号管理',
             icon: markRaw(Friends),
             query: { state: '0' }
         },
-        component: () => import('../views/manage-friends/index.vue')
+        component: () => import('../views/manage-account/index.vue')
     },
     {
         path: '/files',
@@ -198,7 +126,7 @@ export const routeForMenu: Array<RouteRecordRaw> = [
         path: '/other-features',
         name: RouteName.Other,
         meta: {
-            title: '附加功能',
+            title: '个人中心',
             icon: markRaw(Other)
         },
         redirect: '/other-features/markdown',

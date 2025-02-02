@@ -12,15 +12,6 @@ export enum RouteName {
 
     Note = 'note',
     EditNote = 'edit-notes',
-    Topic = 'topic',
-
-    Page = 'page',
-    ListPage = 'page-list',
-    EditPage = 'page-edit',
-
-    Project = 'project',
-    ListProject = 'project-list',
-    EditProject = 'project-edit',
 
     Friend = 'friends',
 

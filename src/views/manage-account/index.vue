@@ -32,23 +32,11 @@ const tabValue = ref<LinkState>(
         >
             <NTabPane
                 :name="LinkState.Pass"
-                tab="朋友们"
+                tab="管理员"
             />
             <NTabPane
                 :name="LinkState.Audit"
-                tab="待审核"
-            />
-            <NTabPane
-                :name="LinkState.Outdate"
-                tab="过时的"
-            />
-            <NTabPane
-                :name="LinkState.Reject"
-                tab="已拒绝"
-            />
-            <NTabPane
-                :name="LinkState.Banned"
-                tab="封禁的"
+                tab="发布人员"
             />
         </NTabs>
     </div>

@@ -18,5 +18,5 @@ export const bgUrl = (import.meta.env.VITE_APP_LOGIN_BG as string)
 export const avatarUrl = ('https://z1.ax1x.com/2023/10/21/pikAnkd.png')
 
 export const configs = {
-    title: 'mix admin'
+    title: '校园新闻管理平台'
 }
