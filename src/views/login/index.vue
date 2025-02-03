@@ -7,6 +7,7 @@ import Avatar from '~/components/avatar/index.vue'
 import { avatarUrl } from '~/constants/env'
 
 const Message = useMessage()
+const account = ref('')
 const password = ref('')
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
@@ -14,8 +15,12 @@ const { user } = storeToRefs(userStore)
 const handleLogin = async (event: Event) => {
     event?.stopPropagation()
 
-    if (!password.value) {
-        Message.error('请输入密码')
+    if (!account.value) {
+        Message.error('请输入帐号')
+    } else {
+        if (!password.value) {
+            Message.error('请输入密码')
+        }
     }
     console.log('handleLogin', password.value)
 }
@@ -36,10 +41,23 @@ const handleLogin = async (event: Event) => {
             @submit.prevent="handleLogin"
         >
             <div class="relative overflow-hidden">
+                <span>帐号</span>
+                <input
+                    ref="input"
+                    v-model="account"
+                    class="relative py-1 m-2 px-3 leading-4 backdrop-blur-xl text-slate-100
+                    bg-white bg-opacity-20 rounded-3xl tracking-wider outline-none"
+                    type="text"
+                    autocomplete=" "
+                    autofocus
+                >
+            </div>
+            <div class="relative overflow-hidden">
+                <span>密码</span>
                 <input
                     ref="input"
                     v-model="password"
-                    class="relative py-1 px-3 leading-4 backdrop-blur-xl text-slate-100
+                    class="relative py-1 px-3 m-2 leading-4 backdrop-blur-xl text-slate-100
                     bg-white bg-opacity-20 rounded-3xl tracking-wider outline-none"
                     type="password"
                     autocomplete=" "
