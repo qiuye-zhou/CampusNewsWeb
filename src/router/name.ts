@@ -27,6 +27,5 @@ export enum RouteName {
     Log = 'log',
 
     Login = 'login',
-    Setup = 'setup',
-    SetupApi = 'setup-api',
+    Webhome = 'webhome',
 }

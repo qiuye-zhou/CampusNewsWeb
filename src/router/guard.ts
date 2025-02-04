@@ -9,10 +9,10 @@ const title = configs.title
 // })
 
 router.afterEach(to => {
-    document.title = getPageTitle(to?.meta.title as string || null)
+    document.title = getPageTitle(to?.meta.title as string || null, to?.meta.isWeb as boolean || null)
 })
 
-function getPageTitle(pageTitle?: string | null) {
-    if (pageTitle) return `${pageTitle} - ${title}`
+function getPageTitle(pageTitle?: string | null, pageisWeb?: boolean | null) {
+    if (pageTitle) return `${pageTitle} - ${pageisWeb ? '校园新闻' : title}`
     return `${title}`
 }

@@ -4,6 +4,7 @@ import { RouteName } from './name'
 
 import SidebarLayout from '../layout/sidebar/index.vue'
 import SetupLayout from '../layout/setup-view.vue'
+import WebhomeLayout from '../layout/webhome-view.vue'
 import LayRouterView from '../layout/router-view.vue'
 import {
     Analyze, Notes, Article, Dashboard, Files, Friends, Maintain, Other, EyeIcon, PencilAltIcon, PuzzlePieceIcon,
@@ -195,18 +196,18 @@ export const routes: RouteRecordRaw[] = [
                 meta: { isPublic: true, title: '登录' },
                 component: () => import('../views/login/index.vue')
             },
+        ]
+    },
+    {
+        path: '/',
+        component: WebhomeLayout,
+        children:[
             {
-                path: '/setup',
-                name: RouteName.Setup,
-                meta: { isPublic: true, title: '初始化' },
-                component: () => import('../views/setup/index.vue')
+                path: '/webhome',
+                name: RouteName.Webhome,
+                meta: { isPublic: true, title: '首页', isWeb: true },
+                component: () => import('../views/webhome/index.vue')
             },
-            {
-                path: '/setup-api',
-                name: RouteName.SetupApi,
-                meta: { isPublic: true, title: '设置接口地址' },
-                component: () => import('../views/setup-api/index.vue')
-            }
         ]
     },
     {
