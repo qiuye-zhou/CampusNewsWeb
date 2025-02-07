@@ -15,7 +15,6 @@ import Divider from './Divider.vue'
         <span class="my-3 block md:my-0 md:inline">
             Powered by qiuye
         </span>
-        <Divider/>
       </p>
     </div>
 </template>
