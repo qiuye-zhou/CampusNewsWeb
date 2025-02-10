@@ -64,11 +64,23 @@ const buildModel = (
     }
 }
 
+// 管理平台menus
 export const buildMenus = (
     routes: Array<TRouteRecordNormalized>
 ): MenuModel[] =>
     (
-      routes.find(item => item.name === 'home' && item.path === '/') as any
+      routes.find(item => item.name === 'home') as any
+    ).children
+        .map((item: TRouteRecordNormalized) => {
+            return buildModel(item, '')
+        })
+
+// 新闻展示网站menus
+export const buildWebSiteMenus = (
+    routes: Array<TRouteRecordNormalized>
+): MenuModel[] =>
+    (
+        routes.find(item => item.name === 'websitehome' && item.path === '/') as any
     ).children
         .map((item: TRouteRecordNormalized) => {
             return buildModel(item, '')

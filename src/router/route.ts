@@ -177,7 +177,29 @@ export const routeForMenu: Array<RouteRecordRaw> = [
     }
 ]
 
+export const routeForWebSiteMenu: Array<RouteRecordRaw> = [
+    {
+        path: '/webhome',
+        name: RouteName.Webhome,
+        meta: { isPublic: true, title: '首页', isWeb: true },
+        component: () => import('../views/website/webhome/index.vue')
+    },
+    {
+        path: '/column',
+        name: RouteName.Column,
+        meta: { isPublic: true, title: '专栏', isWeb: true },
+        component: () => import('../views/website/column/index.vue')
+    },
+]
+
 export const routes: RouteRecordRaw[] = [
+    {
+        path: '/',
+        component: WebhomeLayout,
+        name: RouteName.WebSiteHome,
+        redirect: '/webhome',
+        children: routeForWebSiteMenu
+    },
     {
         path: '/',
         component: SidebarLayout,
@@ -195,18 +217,6 @@ export const routes: RouteRecordRaw[] = [
                 name: RouteName.Login,
                 meta: { isPublic: true, title: '登录' },
                 component: () => import('../views/login/index.vue')
-            },
-        ]
-    },
-    {
-        path: '/',
-        component: WebhomeLayout,
-        children:[
-            {
-                path: '/webhome',
-                name: RouteName.Webhome,
-                meta: { isPublic: true, title: '首页', isWeb: true },
-                component: () => import('../views/webhome/index.vue')
             },
         ]
     },

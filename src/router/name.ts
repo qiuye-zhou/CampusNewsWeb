@@ -27,5 +27,8 @@ export enum RouteName {
     Log = 'log',
 
     Login = 'login',
+
+    WebSiteHome = 'websitehome',
     Webhome = 'webhome',
+    Column = 'column'
 }
