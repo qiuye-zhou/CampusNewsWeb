@@ -190,6 +190,12 @@ export const routeForWebSiteMenu: Array<RouteRecordRaw> = [
         meta: { isPublic: true, title: '专栏', isWeb: true },
         component: () => import('../views/website/column/index.vue')
     },
+    {
+        path: '/timeline',
+        name: RouteName.Timeline,
+        meta: { isPublic: true, title: '时间线', isWeb: true },
+        component: () => import('../views/website/timeline/index.vue')
+    },
 ]
 
 export const routes: RouteRecordRaw[] = [

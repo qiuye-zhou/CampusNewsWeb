@@ -30,5 +30,6 @@ export enum RouteName {
 
     WebSiteHome = 'websitehome',
     Webhome = 'webhome',
-    Column = 'column'
+    Column = 'column',
+    Timeline = 'timeline'
 }
