@@ -35,5 +35,6 @@ onMounted(() => {
 :is([data-theme="dark"] .transitions) {
     background-color: transparent;
     color: aliceblue;
+    background: #2f2f2f;
 }
 </style>

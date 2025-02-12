@@ -27,3 +27,14 @@ const properties = defineProps({
         <p class="text-center w-full">{{ properties.title }}</p>
     </button>
 </template>
+<style scoped>
+.active {
+    font-weight: 900 !important;
+    border-bottom-width: 2px;
+    border-bottom-color: black;
+}
+:is([data-theme="dark"] .active) {
+    border-bottom-width: 2px;
+    border-bottom-color: rgb(255, 255, 255);
+}
+</style>

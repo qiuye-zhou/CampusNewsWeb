@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { buildWebSiteMenus, MenuModel } from '~/utils/menu'
@@ -7,6 +7,7 @@ import { buildWebSiteMenus, MenuModel } from '~/utils/menu'
 import WebMenu from './WebHeader/WebMenu.vue'
 
 const router = useRouter()
+const route = computed(() => router.currentRoute.value)
 
 const menus = ref<MenuModel[]>([])
 
@@ -27,7 +28,10 @@ function handleRoute(item: MenuModel) {
     <div class="flex justify-center border-b-4">
         <div v-for="item in menus" class="w-24">
             <WebMenu
-                :class-names="'py-3'"
+                :class-names="`py-3 ${route.fullPath === item.fullPath ||
+                            route.fullPath.startsWith(item.fullPath)
+                            ? 'active'
+                            : ''}`"
                 :title="item.title"
                 @click="() => {
                     handleRoute(item)}"
