@@ -11,6 +11,7 @@ import { Dark, Light, SidebarCloseIcon } from '../icons/index'
 import { useRouter } from 'vue-router'
 import { MenuModel, buildMenus } from '~/utils/menu'
 import MenuItem from './menu.vue'
+import Exit from '../icons/list/Exit.vue'
 
 const properties = defineProps({
     collapse: {
@@ -136,6 +137,18 @@ function handleRoute(item: MenuModel, nextIndex?: number) {
                             </MenuItem>
                         </li>
                     </ul>
+                </div>
+                <div>
+                    <button
+                        :class="`flex w-full text-sm items-center py-3
+                      hover:!text-white hover:!bg-transparent focus:!text-white focus:!bg-transparent`"
+                        @click="() => {router.push({path: '/webhome',})}"
+                    >
+                    <span class="flex basis-12 items-center justify-center">
+                        <Exit />
+                    </span>
+                        <span>新闻入口</span>
+                    </button>
                 </div>
             </div>
         </NLayoutContent>
