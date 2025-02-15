@@ -147,7 +147,7 @@ function handleRoute(item: MenuModel, nextIndex?: number) {
                     <span class="flex basis-12 items-center justify-center">
                         <Exit />
                     </span>
-                        <span>新闻入口</span>
+                        <span :class="`${properties.collapse ? 'hidden' : ''}`">新闻入口</span>
                     </button>
                 </div>
             </div>
