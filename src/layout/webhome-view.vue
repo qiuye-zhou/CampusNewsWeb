@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { NBackTop } from 'naive-ui'
 import { bgUrl } from '../constants/env'
 
 import WebHeader from '~/components/website/WebHeader.vue';
@@ -19,11 +20,14 @@ onMounted(() => {
 <template>
     <div class="transitions">
         <WebHeader/>
-        <router-view v-slot="{ Component }">
+        <div>
+            <router-view v-slot="{ Component }">
             <Suspense>
                 <component :is="Component" />
             </Suspense>
-        </router-view>
+            </router-view>
+        <n-back-top class="z-10" :right="30" :bottom="100" />
+        </div>
         <WebFooter/>
     </div>
 </template>
