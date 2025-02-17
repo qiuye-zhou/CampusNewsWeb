@@ -207,6 +207,20 @@ export const routes: RouteRecordRaw[] = [
         children: routeForWebSiteMenu
     },
     {
+        path: '/detail',
+        component: WebhomeLayout,
+        name: RouteName.Detail,
+        redirect: '/detail/page?id=1',
+        children: [
+            {
+                path: 'page',
+                name: RouteName.Detail,
+                meta: { isPublic: true, title: '新闻', isWeb: true },
+                component: () => import('../views/website/detail/index.vue')
+            }
+        ]
+    },
+    {
         path: '/',
         component: SidebarLayout,
         name: RouteName.Home,
