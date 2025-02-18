@@ -20,7 +20,7 @@ export enum RouteName {
     Analyze = 'analyze',
 
     Other = 'other',
-    Markdown = 'markdown',
+    Updateinfo = 'updateinfo',
 
     Maintain = 'maintain',
     Backup = 'backup',

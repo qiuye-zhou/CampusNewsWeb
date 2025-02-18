@@ -4,7 +4,7 @@
 <template>
     <div>
         <p>
-            markdown-helper
+            Updateinfo
         </p>
     </div>
 </template>

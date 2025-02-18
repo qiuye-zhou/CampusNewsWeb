@@ -130,17 +130,17 @@ export const routeForMenu: Array<RouteRecordRaw> = [
             title: '个人中心',
             icon: markRaw(Other)
         },
-        redirect: '/other-features/markdown',
+        redirect: '/other-features/updateinfo',
         component: LayRouterView,
         children: [
             {
-                path: 'markdown',
-                name: RouteName.Markdown,
+                path: 'updateinfo',
+                name: RouteName.Updateinfo,
                 meta: {
-                    title: 'Markdown 导入导出',
+                    title: '修改信息',
                     icon: markRaw(MarkdownIcon)
                 },
-                component: () => import('../views/other/markdown-helper.vue')
+                component: () => import('../views/other/update-info.vue')
             }
         ]
     },
