@@ -40,6 +40,9 @@ const handleLogin = async (event: Event) => {
             action="#"
             @submit.prevent="handleLogin"
         >
+            <div class="relative overflow-hidden text-xl">
+                <span>校园新闻管理平台</span>
+            </div>
             <div class="relative overflow-hidden">
                 <span>帐号</span>
                 <input
