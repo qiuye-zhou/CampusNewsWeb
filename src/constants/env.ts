@@ -13,9 +13,9 @@ export const GATEWAY_URL = localStorage.getItem('__gateway')
 
 export const bgUrl = (import.meta.env.VITE_APP_LOGIN_BG as string)
   || localStorage.getItem('LOGIN_BG')
-  || 'https://z1.ax1x.com/2023/10/03/pPOF326.png'
+  || '../../public/img/loginbg.png'
 
-export const avatarUrl = ('https://z1.ax1x.com/2023/10/21/pikAnkd.png')
+export const avatarUrl = ('/img/avatarUrl.png')
 
 export const configs = {
     title: '校园新闻管理平台'

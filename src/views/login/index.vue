@@ -29,7 +29,7 @@ const handleLogin = async (event: Event) => {
 <template>
     <div
         class="absolute flex justify-center flex-col items-center
-        top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2"
+        top-2/4 left-2/4 -translate-x-1/2 -translate-y-1/2 bg-slate-200 p-12 rounded-md"
     >
         <Avatar
             :src="user?.avatar || avatarUrl"
@@ -45,7 +45,7 @@ const handleLogin = async (event: Event) => {
                 <input
                     ref="input"
                     v-model="account"
-                    class="relative py-1 m-2 px-3 leading-4 backdrop-blur-xl text-slate-100
+                    class="relative py-1 m-2 px-3 leading-4 backdrop-blur-xl
                     bg-white bg-opacity-20 rounded-3xl tracking-wider outline-none"
                     type="text"
                     autocomplete=" "
@@ -57,7 +57,7 @@ const handleLogin = async (event: Event) => {
                 <input
                     ref="input"
                     v-model="password"
-                    class="relative py-1 px-3 m-2 leading-4 backdrop-blur-xl text-slate-100
+                    class="relative py-1 px-3 m-2 leading-4 backdrop-blur-xl
                     bg-white bg-opacity-20 rounded-3xl tracking-wider outline-none"
                     type="password"
                     autocomplete=" "
