@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { NInput } from 'naive-ui';
+
+
+import { useMessage } from 'naive-ui'
+const message = useMessage()
+
 
 import { buildWebSiteMenus, MenuModel } from '~/utils/menu'
 
@@ -21,6 +27,12 @@ function handleRoute(item: MenuModel) {
         path: item.fullPath,
         query: item.query
     })
+}
+
+function handleSearch(e: KeyboardEvent) {
+    if (e.code == 'Enter') {
+        message.info("搜索待写")
+    }
 }
 </script>
 
@@ -46,6 +58,9 @@ function handleRoute(item: MenuModel) {
             >
                 <p class="text-center w-full">管理入口</p>
             </button>
+        </div>
+        <div class="w-28 flex justify-center items-center">
+            <n-input size="small" round  placeholder="搜索" @keyup="handleSearch" />
         </div>
     </div>
 </template>
