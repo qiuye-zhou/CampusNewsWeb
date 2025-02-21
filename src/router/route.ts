@@ -221,6 +221,20 @@ export const routes: RouteRecordRaw[] = [
         ]
     },
     {
+        path: '/search',
+        component: WebhomeLayout,
+        name: RouteName.Search,
+        redirect: '/search/result?str=',
+        children: [
+            {
+                path: 'result',
+                name: RouteName.Search,
+                meta: { isPublic: true, title: '搜索结果', isWeb: true },
+                component: () => import('../views/website/search/index.vue')
+            }
+        ]
+    },
+    {
         path: '/',
         component: SidebarLayout,
         name: RouteName.Home,
