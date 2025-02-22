@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { NTimeline,NTimelineItem } from 'naive-ui';
+
+function handletest() {
+    console.log('test')
+}
 </script>
 
 <template>
@@ -6,6 +11,35 @@
         class="overflow-auto w-full relative h-[100vh]
         flex items-center justify-center"
     >
-        <h1>timeline</h1>
+        <n-timeline size="large" class="pl-64">
+            <n-timeline-item content="啊" />
+            <n-timeline-item
+                type="success"
+                title="成功"
+                content="哪里成功"
+                time="2018-04-03 20:46"
+                class="cursor-pointer"
+                @click="handletest"
+            />
+            <n-timeline-item type="error" content="哪里错误" time="2018-04-03 20:46" />
+            <n-timeline-item
+                type="warning"
+                title="警告"
+                content="哪里警告"
+                time="2018-04-03 20:46"
+                class="cursor-pointer"
+                @click="handletest"
+            />
+            <n-timeline-item
+                type="info"
+                title="信息"
+                content="是的"
+                time="2018-04-03 20:46"
+                line-type="dashed"                
+                class="cursor-pointer"
+                @click="handletest"
+            />
+            <n-timeline-item content="啊" />
+        </n-timeline>
     </div>
 </template>
