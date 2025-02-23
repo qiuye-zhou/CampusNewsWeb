@@ -188,7 +188,21 @@ export const routeForWebSiteMenu: Array<RouteRecordRaw> = [
         path: '/column',
         name: RouteName.Column,
         meta: { isPublic: true, title: '专栏', isWeb: true },
-        component: () => import('../views/website/column/index.vue')
+        redirect: '/column/home',
+        children: [
+            {
+                path: 'home',
+                name: RouteName.TagHome,
+                meta: { isPublic: true, title: '专栏', isWeb: true },
+                component: () => import('../views/website/column/index.vue'),
+            },
+            {
+                path: 'tag',
+                name: RouteName.Tag,
+                meta: { isPublic: true, title: '专栏', isWeb: true },
+                component: () => import('../views/website/column/tag/index.vue')
+            },
+        ]
     },
     {
         path: '/timeline',
