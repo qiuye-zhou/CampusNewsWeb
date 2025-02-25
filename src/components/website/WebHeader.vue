@@ -3,11 +3,6 @@ import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { NInput } from 'naive-ui';
 
-
-import { useMessage } from 'naive-ui'
-const message = useMessage()
-
-
 import { buildWebSiteMenus, MenuModel } from '~/utils/menu'
 
 import WebMenu from './WebHeader/WebMenu.vue'
@@ -16,10 +11,10 @@ const router = useRouter()
 const route = computed(() => router.currentRoute.value)
 
 const menus = ref<MenuModel[]>([])
+const SearchValue = ref()
 
 onMounted(() => {
     menus.value = buildWebSiteMenus(router.getRoutes())
-    console.log(menus)
 })
 
 function handleRoute(item: MenuModel) {
@@ -30,8 +25,13 @@ function handleRoute(item: MenuModel) {
 }
 
 function handleSearch(e: KeyboardEvent) {
-    if (e.code == 'Enter') {
-        message.info("搜索待写")
+    if (e.code == 'Enter' && SearchValue.value) {
+        router.push({
+            path: '/search/result',
+            query: {
+                str: SearchValue.value
+            }
+        })
     }
 }
 </script>
@@ -60,7 +60,7 @@ function handleSearch(e: KeyboardEvent) {
             </button>
         </div>
         <div class="w-28 flex justify-center items-center">
-            <n-input size="small" round  placeholder="搜索" @keyup="handleSearch" />
+            <n-input size="small" round  placeholder="搜索" clearable v-model:value="SearchValue" @keyup="handleSearch" />
         </div>
     </div>
 </template>
