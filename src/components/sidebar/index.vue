@@ -12,6 +12,7 @@ import { useRouter } from 'vue-router'
 import { MenuModel, buildMenus } from '~/utils/menu'
 import MenuItem from './menu.vue'
 import Exit from '../icons/list/Exit.vue'
+import LoginOut from '../icons/list/LoginOut.vue'
 
 const properties = defineProps({
     collapse: {
@@ -58,6 +59,10 @@ function handleRoute(item: MenuModel, nextIndex?: number) {
     if (typeof nextIndex === 'number') {
         updateIndex(nextIndex)
     }
+}
+
+function handleloginout() {
+    router.push({path: '/login',})
 }
 
 </script>
@@ -148,6 +153,18 @@ function handleRoute(item: MenuModel, nextIndex?: number) {
                         <Exit />
                     </span>
                         <span :class="`${properties.collapse ? 'hidden' : ''}`">新闻入口</span>
+                    </button>
+                </div>
+                <div>
+                    <button
+                        :class="`flex w-full text-sm items-center py-3
+                      hover:!text-white hover:!bg-transparent focus:!text-white focus:!bg-transparent`"
+                        @click="handleloginout"
+                    >
+                    <span class="flex basis-12 items-center justify-center">
+                        <LoginOut />
+                    </span>
+                        <span :class="`${properties.collapse ? 'hidden' : ''}`">退出登录</span>
                     </button>
                 </div>
             </div>
