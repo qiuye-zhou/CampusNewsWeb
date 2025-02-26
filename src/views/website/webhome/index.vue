@@ -2,6 +2,10 @@
 import {
     onMounted, provide, reactive
 } from 'vue'
+import { NCard } from 'naive-ui'
+
+import NewCard from '~/components/website/NewCard/index.vue'
+import Carousel from '~/components/website/Carousel/index.vue'
 
 import { configtype } from './type'
 
@@ -16,9 +20,17 @@ onMounted(async () => {
 
 <template>
     <div
-        class="overflow-auto w-full relative h-[100vh]
-        flex items-center justify-center"
+        class="w-full relative
+        flex items-center justify-center flex-wrap"
     >
-        <h1>webhome</h1>
+        <Carousel/>
+        <n-card title="最近" size="huge" header-style="border-width: 2px;" content-style="border-width: 2px;">
+            <NewCard/>
+            <NewCard/>
+            <NewCard/>
+        </n-card>
+        <n-card title="推荐" size="huge" header-style="border-width: 2px;" content-style="border-width: 2px;">
+            <NewCard/>
+        </n-card>
     </div>
 </template>
