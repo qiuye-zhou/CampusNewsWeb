@@ -3,8 +3,7 @@ import { NCarousel, NCarouselItem } from 'naive-ui';
 </script>
 <template>
     <n-carousel
-        draggable
-        show-arrow
+        trigger="hover"
         autoplay
         dot-type="line"
         style="height: 360px"
