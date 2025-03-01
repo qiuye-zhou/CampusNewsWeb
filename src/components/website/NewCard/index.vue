@@ -4,11 +4,11 @@ import { NCard } from 'naive-ui'
 import DetailIcon from '~/components/icons/list/DetailIcon.vue';
 
 const router = useRouter()
-function handleRoute(item: string, tag: string) {
+function handleRoute(item: string, id: string) {
     router.push({
         path: item,
         query: {
-            tag: tag
+            id: id
         }
     })
 }
