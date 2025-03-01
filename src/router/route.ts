@@ -7,12 +7,14 @@ import SetupLayout from '../layout/setup-view.vue'
 import WebhomeLayout from '../layout/webhome-view.vue'
 import LayRouterView from '../layout/router-view.vue'
 import {
-    Analyze, Notes, Article, Dashboard, Files, Friends, Maintain, Other, EyeIcon, PencilAltIcon, PuzzlePieceIcon,
+    Analyze, Notes, Article, Dashboard, Friends, Maintain, Other, EyeIcon, PencilAltIcon, PuzzlePieceIcon,
     MarkdownIcon, UndoAltIcon, LogIcon
 } from '../components/icons'
 import { markRaw } from 'vue'
+import storage from '~/utils/localstorage'
 
-export const routeForMenu: Array<RouteRecordRaw> = [
+//管理员menu
+export const routeForMenuAdmin: Array<RouteRecordRaw> = [
     {
         path: '/dashboard',
         component: () => import('../views/dashboard/index.vue'),
@@ -41,16 +43,6 @@ export const routeForMenu: Array<RouteRecordRaw> = [
                     query: { page: 1 }
                 },
                 component: () => import('../views/manage-posts/list.vue').then(m => m.default)
-            },
-            {
-                path: 'edit',
-                name: RouteName.EditPost,
-                meta: {
-                    title: '撰写新闻',
-                    icon: markRaw(PencilAltIcon)
-                },
-                props: true,
-                component: () => import('../views/manage-posts/edit.vue')
             },
             {
                 path: 'category',
@@ -103,15 +95,6 @@ export const routeForMenu: Array<RouteRecordRaw> = [
             query: { state: '0' }
         },
         component: () => import('../views/manage-account/index.vue')
-    },
-    {
-        path: '/files',
-        name: RouteName.File,
-        meta: {
-            title: '文件',
-            icon: markRaw(Files)
-        },
-        component: () => import('../views/manage-files/index.vue')
     },
     {
         path: '/analyze',
@@ -176,6 +159,87 @@ export const routeForMenu: Array<RouteRecordRaw> = [
         ]
     }
 ]
+
+//编辑menu
+export const routeForMenuEdit: Array<RouteRecordRaw> = [
+    {
+        path: '/dashboard',
+        component: () => import('../views/dashboard/index.vue'),
+        name: RouteName.Dashboard,
+        meta: {
+            title: '仪表盘',
+            icon: markRaw(Dashboard)
+        }
+    },
+    {
+        path: '/posts',
+        name: RouteName.Post,
+        meta: {
+            title: '新闻管理',
+            icon: markRaw(Article)
+        },
+        redirect: '/posts/view?page=1',
+        component: LayRouterView,
+        children: [
+            {
+                path: 'view',
+                name: RouteName.ViewPost,
+                meta: {
+                    title: '管理新闻',
+                    icon: markRaw(EyeIcon),
+                    query: { page: 1 }
+                },
+                component: () => import('../views/manage-posts/list.vue').then(m => m.default)
+            },
+            {
+                path: 'edit',
+                name: RouteName.EditPost,
+                meta: {
+                    title: '撰写新闻',
+                    icon: markRaw(PencilAltIcon)
+                },
+                props: true,
+                component: () => import('../views/manage-posts/edit.vue')
+            }
+        ]
+    },
+    {
+        path: '/analyze',
+        name: RouteName.Analyze,
+        meta: {
+            title: '数据',
+            icon: markRaw(Analyze),
+            query: { page: 1 }
+        },
+        component: () => import('../views/analyze/index.vue')
+    },
+    {
+        path: '/other-features',
+        name: RouteName.Other,
+        meta: {
+            title: '个人中心',
+            icon: markRaw(Other)
+        },
+        redirect: '/other-features/updateinfo',
+        component: LayRouterView,
+        children: [
+            {
+                path: 'updateinfo',
+                name: RouteName.Updateinfo,
+                meta: {
+                    title: '修改信息',
+                    icon: markRaw(MarkdownIcon)
+                },
+                component: () => import('../views/other/update-info.vue')
+            }
+        ]
+    }
+]
+
+//测试代码---->>
+storage.set("role", 'admin')
+export const routeForMenu = storage.get("role") == 'admin' ? routeForMenuAdmin : routeForMenuEdit
+//测试代码----<<
 
 export const routeForWebSiteMenu: Array<RouteRecordRaw> = [
     {

@@ -4,4 +4,4 @@ import './router'
 
 export { router } from './router'
 
-export { routeForMenu } from './route'
+export { routeForMenu, routeForMenuAdmin, routeForMenuEdit } from './route'

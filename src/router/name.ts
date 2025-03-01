@@ -15,7 +15,6 @@ export enum RouteName {
 
     Friend = 'friends',
 
-    File = 'files',
 
     Analyze = 'analyze',
 
