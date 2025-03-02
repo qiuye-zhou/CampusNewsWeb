@@ -1,4 +1,6 @@
-export const TokenKey = 'mix-admin-token'
+export const TokenKey = 'admin-token'
+export const TokenKeyId = 'id-token'
+export const TokenKeyGrade = 'grade-token'
 
 export function getToken(): string | null {
     const token = localStorage.getItem(TokenKey)
