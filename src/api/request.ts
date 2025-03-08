@@ -1,10 +1,7 @@
 import axios from 'axios'
-import { useMessage } from 'naive-ui'
 import { API_URL } from '../constants/env'
 import { TokenKey, TokenKeyGrade, TokenKeyId } from '../utils/token'
 import storage from '~/utils/localstorage'
-
-const Message = useMessage()
 
 axios.defaults.withCredentials = true // 允许跨域携带cookie信息
 
@@ -34,7 +31,6 @@ httpApi.interceptors.response.use(
         if (res.code !== 200) {
             if (res.code == 401) {
                 storage.removeAll()
-                Message.error(res.msg)
                 setTimeout(() => location.reload(),3000)
             } else {
                 return res

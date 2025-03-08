@@ -17,7 +17,7 @@ function handleRoute(item: string, tag: string) {
 
 <template>
     <div
-        class="w-full relative
+        class="w-full relative min-h-screen
         flex items-center justify-center flex-wrap"
     >
         <Carousel/>
@@ -25,23 +25,19 @@ function handleRoute(item: string, tag: string) {
             <template #header-extra>
                 <p style="cursor: pointer;"  @click="handleRoute('/column/tag', '11111')">更多</p>
             </template>
-            <NewCard/>
-            <NewCard/>
-            <NewCard/>
+            <!-- <NewCard/> -->
         </n-card>
         <n-card title="专栏2" size="huge" header-style="border-width: 2px;" content-style="border-width: 2px;">
             <template #header-extra>
                 <p style="cursor: pointer;"  @click="handleRoute('/column/tag', '22222')">更多</p>
             </template>
-            <NewCard/>
+            <!-- <NewCard/> -->
         </n-card>
         <n-card title="专栏3" size="huge" header-style="border-width: 2px;" content-style="border-width: 2px;">
             <template #header-extra>
                 <p style="cursor: pointer;"  @click="handleRoute('/column/tag', '33333')">更多</p>
             </template>
-            <NewCard/>
-            <NewCard/>
-            <NewCard/>
+            <!-- <NewCard/> -->
         </n-card>
     </div>
 </template>
