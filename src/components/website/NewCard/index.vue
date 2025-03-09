@@ -17,7 +17,7 @@ function handleRoute(item: string, id: string) {
 </script>
 
 <template>
-    <n-card :title="props.data.title" size="small" header-style="" content-style="">
+    <n-card :title="props.data.title" size="medium" header-style="border-width: 1px;" content-style="border-width: 1px;">
         <template #header-extra>
             <div class="w-48 flex justify-between">
                 <n-tag type="info">{{ props.data.typename }}</n-tag>
