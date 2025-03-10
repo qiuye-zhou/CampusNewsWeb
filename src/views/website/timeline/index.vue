@@ -1,7 +1,14 @@
 <script setup lang="ts">
+import { onMounted, reactive } from 'vue';
 import { NTimeline,NTimelineItem } from 'naive-ui';
 
 import { useRouter } from 'vue-router';
+import { getTimeLine } from './http';
+import { parseDate } from '~/utils/time';
+
+const DataList = reactive({
+    timelineList: [] as any,
+})
 
 const router = useRouter()
 
@@ -13,61 +20,29 @@ function handleRoute(item: string, id: string) {
         }
     })
 }
+
+onMounted(async () => {
+    getTimeLine().then((res) => {
+        DataList.timelineList = res.data
+        console.log(parseDate(res.data[0].created, 'yyyy 年 M 月 d 日 HH:mm:ss'), res.data)
+    })
+})
 </script>
 
 <template>
     <div
-        class="w-full relative py-8
+        class="w-full relative py-8 min-h-screen
         flex items-center justify-center"
     >
-        <n-timeline size="large" class="pl-72">
+        <n-timeline size="large" class="flex justify-center items-center">
             <n-timeline-item
+                v-for="item of DataList.timelineList"
                 type="info"
-                title="成功"
-                content="哪里成功"
-                time="2018-04-03 20:46"
+                :title="item.title"
+                :content="item.detail"
+                :time="parseDate(item.created, 'yyyy 年 M 月 d 日 HH:mm:ss')"
                 class="cursor-pointer"
-                @click="handleRoute('/detail/page','test')"
-            />
-            <n-timeline-item
-                type="info"
-                title="警告"
-                content="哪里警告"
-                time="2018-04-03 20:46"
-                class="cursor-pointer"
-                @click="handleRoute('/detail/page','test')"
-            />
-            <n-timeline-item
-                type="info"
-                title="信息"
-                content="是的"
-                time="2018-04-03 20:46"              
-                class="cursor-pointer"
-                @click="handleRoute('/detail/page','test')"
-            />
-            <n-timeline-item
-                type="info"
-                title="信息"
-                content="是的"
-                time="2018-04-03 20:46"              
-                class="cursor-pointer"
-                @click="handleRoute('/detail/page','test')"
-            />
-            <n-timeline-item
-                type="info"
-                title="信息"
-                content="是的"
-                time="2018-04-03 20:46"              
-                class="cursor-pointer"
-                @click="handleRoute('/detail/page','test')"
-            />
-            <n-timeline-item
-                type="info"
-                title="信息"
-                content="是的"
-                time="2018-04-03 20:46"              
-                class="cursor-pointer"
-                @click="handleRoute('/detail/page','test')"
+                @click="handleRoute('/detail/page', item._id)"
             />
         </n-timeline>
     </div>
