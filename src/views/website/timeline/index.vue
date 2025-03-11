@@ -24,7 +24,6 @@ function handleRoute(item: string, id: string) {
 onMounted(async () => {
     getTimeLine().then((res) => {
         DataList.timelineList = res.data
-        console.log(parseDate(res.data[0].created, 'yyyy 年 M 月 d 日 HH:mm:ss'), res.data)
     })
 })
 </script>
