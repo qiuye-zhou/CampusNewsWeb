@@ -16,7 +16,6 @@ const route = computed(() => router.currentRoute.value)
 onMounted(async () => {
     getTagList(route.value.query.tag as string).then((res) => {
         DataList.tagList = res.data
-        console.log(DataList.tagList)
     })
 })
 </script>

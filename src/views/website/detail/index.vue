@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { getNewDetail } from './http';
@@ -13,10 +13,8 @@ const DataList = reactive({
 const router = useRouter()
 
 onMounted(async () => {
-    console.log(router.currentRoute.value.query.id)
     getNewDetail(router.currentRoute.value.query.id as string).then((res) => {
         DataList.new = res.data
-        console.log(res.data)
     })
 })
 </script>
