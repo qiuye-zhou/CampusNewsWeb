@@ -54,7 +54,7 @@ function handleSearch(e: KeyboardEvent) {
                 :class="`flex w-full text-sm items-center py-3
                 hover:!font-black hover:!bg-transparent focus:!font-black focus:!bg-transparent`"
                 @click="() => {
-                    router.push({path: '/dashboard',})}"
+                    router.push({path: '/login',})}"
             >
                 <p class="text-center w-full">管理入口</p>
             </button>

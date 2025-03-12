@@ -1,6 +1,8 @@
 export const TokenKey = 'admin-token'
 export const TokenKeyId = 'id-token'
 export const TokenKeyGrade = 'grade-token'
+export const UserDate = 'user-date'
+export const Role = 'role'
 
 export function getToken(): string | null {
     const token = localStorage.getItem(TokenKey)

@@ -1,16 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useMessage } from 'naive-ui'
-import { useUserStore } from '~/stores/user'
+import { useRouter } from 'vue-router'
+import { useMessage, NSpin } from 'naive-ui'
 import { storeToRefs } from 'pinia'
+import { useUserStore } from '~/stores/user'
 import Avatar from '~/components/avatar/index.vue'
 import { avatarUrl } from '~/constants/env'
+import { login } from './http'
+import storage from '~/utils/localstorage'
+import { Role, TokenKey, UserDate } from '~/utils/token'
+import { RouteName } from '~/router/name'
+import { routeForMenuAdmin, routeForMenuEdit } from '~/router'
+import SidebarLayout from '../../layout/sidebar/index.vue'
 
 const Message = useMessage()
 const account = ref('')
 const password = ref('')
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
+const spinState = ref(true)
+
+const router = useRouter()
 
 const handleLogin = async (event: Event) => {
     event?.stopPropagation()
@@ -20,9 +30,31 @@ const handleLogin = async (event: Event) => {
     } else {
         if (!password.value) {
             Message.error('请输入密码')
+        } else {
+            spinState.value = false
+            login({
+                username: account.value,
+                password: password.value
+            }).then(res => {
+                storage.set(TokenKey, res.data.token)
+                storage.set(Role, res.data.grade ? 'admin' : 'edit')
+                storage.set(UserDate, res.data)
+                const routeForMenu = storage.get("role") == 'admin' ? routeForMenuAdmin : routeForMenuEdit
+                router.addRoute({
+                    path: '/',
+                    component: SidebarLayout,
+                    name: RouteName.Home,
+                    redirect: '/dashboard',
+                    children: [...routeForMenu]
+                })
+                router.push({path: '/dashboard',})
+                spinState.value = true
+            }).catch(err => {
+                Message.error(err.response.data.message)
+                spinState.value = true
+            })
         }
     }
-    console.log('handleLogin', password.value)
 }
 </script>
 
@@ -68,6 +100,7 @@ const handleLogin = async (event: Event) => {
                 >
             </div>
             <button
+                v-if="spinState"
                 :data-title="'登入'"
                 class="relative inline-block text-xs font-semibold rounded px-4 py-1 mt-4
                 text-slate-50 bg-gradient-to-br from-sky-500 to-sky-300
@@ -78,6 +111,7 @@ const handleLogin = async (event: Event) => {
             >
                 登入
             </button>
+            <n-spin v-else size="small" />
         </form>
     </div>
 </template>

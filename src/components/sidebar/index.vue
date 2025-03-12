@@ -13,6 +13,9 @@ import { MenuModel, buildMenus } from '~/utils/menu'
 import MenuItem from './menu.vue'
 import Exit from '../icons/list/Exit.vue'
 import LoginOut from '../icons/list/LoginOut.vue'
+import { RouteName } from '~/router/name'
+import storage from '~/utils/localstorage'
+import { Role, TokenKey, UserDate } from '~/utils/token'
 
 const properties = defineProps({
     collapse: {
@@ -62,7 +65,11 @@ function handleRoute(item: MenuModel, nextIndex?: number) {
 }
 
 function handleloginout() {
-    router.push({path: '/login',})
+    router.removeRoute(RouteName.Home)
+    storage.remove(TokenKey)
+    storage.remove(Role)
+    storage.remove(UserDate)
+    router.push({path: '/login'})
 }
 
 </script>

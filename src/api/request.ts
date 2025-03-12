@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { API_URL } from '../constants/env'
-import { TokenKey, TokenKeyGrade, TokenKeyId } from '../utils/token'
+import { TokenKey } from '../utils/token'
 import storage from '~/utils/localstorage'
 
 axios.defaults.withCredentials = true // 允许跨域携带cookie信息
@@ -15,8 +15,6 @@ const httpApi = axios.create({
 httpApi.interceptors.request.use(
     config => {
         config.headers.set('Authorization', storage.get(TokenKey))
-        config.headers.set('id', storage.get(TokenKeyId))
-        config.headers.set('grade', storage.get(TokenKeyGrade))
         return config
     },
     error => {

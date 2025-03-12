@@ -2,7 +2,6 @@ import { RouteRecordRaw } from 'vue-router'
 
 import { RouteName } from './name'
 
-import SidebarLayout from '../layout/sidebar/index.vue'
 import SetupLayout from '../layout/setup-view.vue'
 import WebhomeLayout from '../layout/webhome-view.vue'
 import LayRouterView from '../layout/router-view.vue'
@@ -236,10 +235,7 @@ export const routeForMenuEdit: Array<RouteRecordRaw> = [
     }
 ]
 
-//测试代码---->>
-storage.set("role", 'admin')
 export const routeForMenu = storage.get("role") == 'admin' ? routeForMenuAdmin : routeForMenuEdit
-//测试代码----<<
 
 export const routeForWebSiteMenu: Array<RouteRecordRaw> = [
     {
@@ -311,13 +307,6 @@ export const routes: RouteRecordRaw[] = [
                 component: () => import('../views/website/search/index.vue')
             }
         ]
-    },
-    {
-        path: '/',
-        component: SidebarLayout,
-        name: RouteName.Home,
-        redirect: '/dashboard',
-        children: [...routeForMenu]
     },
     {
         path: '/',
