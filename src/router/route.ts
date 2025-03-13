@@ -3,6 +3,7 @@ import { RouteRecordRaw } from 'vue-router'
 import { RouteName } from './name'
 
 import SetupLayout from '../layout/setup-view.vue'
+import SidebarLayout from '../layout/sidebar/index.vue'
 import WebhomeLayout from '../layout/webhome-view.vue'
 import LayRouterView from '../layout/router-view.vue'
 import {
@@ -279,6 +280,13 @@ export const routes: RouteRecordRaw[] = [
         name: RouteName.WebSiteHome,
         redirect: '/webhome',
         children: routeForWebSiteMenu
+    },
+    {
+        path: '/',
+        component: SidebarLayout,
+        name: RouteName.Home,
+        redirect: '/dashboard',
+        children: [...routeForMenu]
     },
     {
         path: '/detail',
