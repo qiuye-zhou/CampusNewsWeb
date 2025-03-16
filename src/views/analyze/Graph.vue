@@ -1,12 +1,14 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script setup lang="ts">
 import { extend, Runtime, corelib } from '@antv/g2'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import { useStoreRef as useStoreReference } from '~/hooks/useStoreRef'
 import { UIStore } from '~/stores/ui'
 import {
     Month, Path, Today, Week, renderChartData
 } from './types'
+
+import { getReqTop } from './http'
 
 import AnalyzeTitle from './components/AnalyzeTitle.vue'
 
@@ -21,12 +23,15 @@ const monthChart = ref<HTMLDivElement>()
 const pieChart = ref<HTMLDivElement>()
 let chartlist: any[]
 
+const graphDataList = reactive({
+    topPaths: [] as Path[]
+})
+
 const graphData: renderChartData = {
     day: [{ hour: '1时', num: 1 }, { hour: '2时', num: 11 }, { hour: '3时', num: 20 }, { hour: '4时', num: 1 }, { hour: '5时', num: 20 }],
     week: [{ day: '周一', num: 11 }, { day: '周二', num: 11 }, { day: '周三', num: 20 }, { day: '周四', num: 1 }, { day: '周五', num: 20 }],
     month: [{ date: '01-01', num: 1 }, { date: '01-02', num: 11 }, { date: '01-03', num: 20 }, { date: '01-04', num: 11 }, { date: '01-05', num: 20 }]
 }
-const topPaths: Path[] = [{ count: 1, path: '/a' }, { count: 2, path: '/aa' }, { count: 3, path: '/as' }, { count: 4, path: '/ax' }, { count: 5, path: '/vss' }]
 
 const renderChart = (
     element: HTMLElement | undefined,
@@ -67,7 +72,7 @@ const renderPie = (element: HTMLElement | undefined) => {
     if (!element) {
         return
     }
-    const pieData = topPaths.slice(0, 10)
+    const pieData = graphDataList.topPaths.slice(0, 10)
     const total = pieData.reduce((pre, { count }) => count + pre, 0)
 
     const data = pieData.map(paths => {
@@ -140,7 +145,10 @@ watch(
 )
 
 onMounted(() => {
-    chartlist = renderAllChart()
+    getReqTop().then(res => {
+        graphDataList.topPaths = res.data
+        chartlist = renderAllChart()
+    })
 })
 </script>
 <template>
@@ -158,7 +166,7 @@ onMounted(() => {
             <div ref="monthChart" />
         </div>
         <div>
-            <AnalyzeTitle :title="'最近 7 天请求路径 Top 10'" />
+            <AnalyzeTitle :title="'最多人浏览新闻的 Top 10'" />
             <div ref="pieChart" />
         </div>
     </div>
