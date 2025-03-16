@@ -6,7 +6,7 @@ import { TokenKey } from '~/utils/token'
 
 const title = configs.title
 
-const regex = /^(webhome|home|tag|taghome|timeline|detail)$/;
+const regex = /^(webhome|home|tag|taghome|timeline|detail|search)$/;
 
 router.beforeEach((to, _from, next) => {
     const token = storage.get(TokenKey)

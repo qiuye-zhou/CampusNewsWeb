@@ -32,6 +32,8 @@ function handleSearch(e: KeyboardEvent) {
                 str: SearchValue.value
             }
         })
+        setTimeout(() => location.reload(), 100)
+        SearchValue.value = ''
     }
 }
 </script>
