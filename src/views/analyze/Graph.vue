@@ -8,7 +8,7 @@ import {
     Month, Path, Today, Week, renderChartData
 } from './types'
 
-import { getReqTop } from './http'
+import { getReqTop, getTypetop } from './http'
 
 import AnalyzeTitle from './components/AnalyzeTitle.vue'
 
@@ -24,7 +24,8 @@ const pieChart = ref<HTMLDivElement>()
 let chartlist: any[]
 
 const graphDataList = reactive({
-    topPaths: [] as Path[]
+    topPaths: [] as Path[],
+    topNewClass: [] as Path[]
 })
 
 const graphData: renderChartData = {
@@ -45,8 +46,8 @@ const renderChart = (
     const chart = new Chart({
         container: element,
         autoFit: true,
-        height: 200,
-        padding: 20
+        height: 230,
+        padding: 25
     })
 
     chart.data(data)
@@ -68,11 +69,11 @@ const renderChart = (
     return chart
 }
 
-const renderPie = (element: HTMLElement | undefined) => {
+const renderPie = (element: HTMLElement | undefined, datalist: Path[]) => {
     if (!element) {
         return
     }
-    const pieData = graphDataList.topPaths.slice(0, 10)
+    const pieData = datalist.slice(0, 10)
     const total = pieData.reduce((pre, { count }) => count + pre, 0)
 
     const data = pieData.map(paths => {
@@ -86,8 +87,8 @@ const renderPie = (element: HTMLElement | undefined) => {
     const chart = new Chart({
         container: element,
         autoFit: true,
-        height: 200,
-        padding: 20
+        height: 230,
+        padding: 25
     })
 
     chart.coordinate({ type: 'theta', innerRadius: 0.25, outerRadius: 0.8 })
@@ -127,10 +128,7 @@ const renderAllChart = () => {
     ]), renderChart(weekChart.value, 'week', graphData.week, [
         'day',
         'num'
-    ]), renderChart(monthChart.value, 'month', graphData.month, [
-        'date',
-        'num'
-    ]), renderPie(pieChart.value))
+    ]), renderPie(monthChart.value, graphDataList.topNewClass), renderPie(pieChart.value, graphDataList.topPaths))
     return list
 }
 
@@ -144,11 +142,18 @@ watch(
     }
 )
 
-onMounted(() => {
-    getReqTop().then(res => {
-        graphDataList.topPaths = res.data
+onMounted(async () => {
+    try {
+        const [response1, response2] = await Promise.all([
+            getReqTop(),
+            getTypetop()
+        ]);
+        graphDataList.topPaths = await response1.data;
+        graphDataList.topNewClass = await response2.data;
         chartlist = renderAllChart()
-    })
+    } catch (error) {
+        console.error('One of the requests failed:', error);
+    }
 })
 </script>
 <template>
@@ -162,7 +167,7 @@ onMounted(() => {
             <div ref="weekChart" />
         </div>
         <div>
-            <AnalyzeTitle :title="'本月请求走势'" />
+            <AnalyzeTitle :title="'最多类别的新闻 Top 10'" />
             <div ref="monthChart" />
         </div>
         <div>

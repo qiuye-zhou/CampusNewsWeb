@@ -6,3 +6,10 @@ export function getReqTop() {
         method: "GET"
     })
 }
+
+export function getTypetop() {
+    return httpApi({
+        url: '/news/typetop',
+        method: "GET"
+    })
+}
