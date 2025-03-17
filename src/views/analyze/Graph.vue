@@ -5,10 +5,10 @@ import { onMounted, reactive, ref, watch } from 'vue'
 import { useStoreRef as useStoreReference } from '~/hooks/useStoreRef'
 import { UIStore } from '~/stores/ui'
 import {
-    Month, Path, Today, Week, renderChartData
+    Month, Path, Today, Week
 } from './types'
 
-import { getReqTop, getTypetop } from './http'
+import { getReqTop, getTimeday, getTimeHours, getTypetop } from './http'
 
 import AnalyzeTitle from './components/AnalyzeTitle.vue'
 
@@ -25,14 +25,10 @@ let chartlist: any[]
 
 const graphDataList = reactive({
     topPaths: [] as Path[],
-    topNewClass: [] as Path[]
+    topNewClass: [] as Path[],
+    day: [] as Today[],
+    week: [] as Week[]
 })
-
-const graphData: renderChartData = {
-    day: [{ hour: '1时', num: 1 }, { hour: '2时', num: 11 }, { hour: '3时', num: 20 }, { hour: '4时', num: 1 }, { hour: '5时', num: 20 }],
-    week: [{ day: '周一', num: 11 }, { day: '周二', num: 11 }, { day: '周三', num: 20 }, { day: '周四', num: 1 }, { day: '周五', num: 20 }],
-    month: [{ date: '01-01', num: 1 }, { date: '01-02', num: 11 }, { date: '01-03', num: 20 }, { date: '01-04', num: 11 }, { date: '01-05', num: 20 }]
-}
 
 const renderChart = (
     element: HTMLElement | undefined,
@@ -47,7 +43,7 @@ const renderChart = (
         container: element,
         autoFit: true,
         height: 230,
-        padding: 25
+        padding: 20
     })
 
     chart.data(data)
@@ -88,7 +84,7 @@ const renderPie = (element: HTMLElement | undefined, datalist: Path[]) => {
         container: element,
         autoFit: true,
         height: 230,
-        padding: 25
+        padding: 20
     })
 
     chart.coordinate({ type: 'theta', innerRadius: 0.25, outerRadius: 0.8 })
@@ -122,10 +118,10 @@ const renderPie = (element: HTMLElement | undefined, datalist: Path[]) => {
 
 const renderAllChart = () => {
     const list = []
-    list.push(renderChart(dayChart.value, 'day', graphData.day, [
+    list.push(renderChart(dayChart.value, 'day', graphDataList.day, [
         'hour',
         'num'
-    ]), renderChart(weekChart.value, 'week', graphData.week, [
+    ]), renderChart(weekChart.value, 'week', graphDataList.week, [
         'day',
         'num'
     ]), renderPie(monthChart.value, graphDataList.topNewClass), renderPie(pieChart.value, graphDataList.topPaths))
@@ -144,12 +140,16 @@ watch(
 
 onMounted(async () => {
     try {
-        const [response1, response2] = await Promise.all([
+        const [response1, response2, response3, response4] = await Promise.all([
             getReqTop(),
-            getTypetop()
+            getTypetop(),
+            getTimeHours(),
+            getTimeday()
         ]);
         graphDataList.topPaths = await response1.data;
         graphDataList.topNewClass = await response2.data;
+        graphDataList.day = await response3.data;
+        graphDataList.week = await response4.data;
         chartlist = renderAllChart()
     } catch (error) {
         console.error('One of the requests failed:', error);

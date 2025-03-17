@@ -13,3 +13,17 @@ export function getTypetop() {
         method: "GET"
     })
 }
+
+export function getTimeHours() {
+    return httpApi({
+        url: '/analyze/hours',
+        method: "GET"
+    })
+}
+
+export function getTimeday() {
+    return httpApi({
+        url: '/analyze/day',
+        method: "GET"
+    })
+}
