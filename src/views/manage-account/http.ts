@@ -21,3 +21,10 @@ export function getRegister(data: any) {
         data
     })
 }
+
+export function deleteAccount(id: string) {
+    return httpApi({
+        url: `/user/${id}`,
+        method: "DELETE"
+    })
+}

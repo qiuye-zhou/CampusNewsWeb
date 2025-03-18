@@ -11,17 +11,19 @@ import {
     NForm,
     NFormItem,
     NInput,
-    useMessage
+    useMessage,
+    useDialog
 } from 'naive-ui'
 
 import { RouteName } from '~/router/name'
-import { getAllAdmin, getAllEdit, getRegister } from './http'
+import { getAllAdmin, getAllEdit, getRegister, deleteAccount } from './http'
 import { parseDate } from '~/utils/time'
 import { ModelType } from './type'
 
 const route = useRoute()
 const router = useRouter()
 const message = useMessage()
+const dialog = useDialog()
 
 const accountDataLit = reactive({
     adminList: [] as any[],
@@ -107,6 +109,21 @@ function validatePasswordStartWith(
 function validatePasswordSame(_rule: FormItemRule, value: string): boolean {
     return value === modelRef.value.password
 }
+function handleAccountDelete(id: string, username: string) {
+    dialog.error({
+          title: '删除账户',
+          content: `是否确认删除账户${username}`,
+          positiveText: '确认',
+          onPositiveClick: () => {
+            deleteAccount(id).then(_res => {
+                message.success(`删除账户${username}成功`)
+                updateListData()
+            }).catch(_err => {
+                message.success(`删除账户${username}失败`)
+            })
+          }
+    })
+}
 
 const rules: FormRules = {
     username: [
@@ -178,8 +195,7 @@ onMounted(() => {
                             <td>{{ item.lastLoginIp }}</td>
                             <td>{{ parseDate(item.lastLoginTime) }}</td>
                             <td>
-                                <n-button  strong secondary round type="info">修改</n-button>
-                                <n-button  strong secondary round type="error">删除</n-button>
+                                <n-button  strong secondary round type="error" @click="handleAccountDelete(item._id, item.username)">删除</n-button>
                             </td>
                         </tr>
                         <h1 v-else class="text-center text-red-400">暂无</h1>
@@ -208,8 +224,7 @@ onMounted(() => {
                             <td>{{ item.lastLoginIp }}</td>
                             <td>{{ parseDate(item.lastLoginTime) }}</td>
                             <td>
-                                <n-button  strong secondary round type="info">修改</n-button>
-                                <n-button  strong secondary round type="error">删除</n-button>
+                                <n-button  strong secondary round type="error" @click="handleAccountDelete(item._id, item.username)">删除</n-button>
                             </td>
                         </tr>
                         <h1 v-else class="text-center text-red-400">暂无</h1>
