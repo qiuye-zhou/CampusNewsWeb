@@ -92,7 +92,7 @@ export const routeForMenuAdmin: Array<RouteRecordRaw> = [
         meta: {
             title: '帐号管理',
             icon: markRaw(Friends),
-            query: { state: '0' }
+            query: { state: 'admin' }
         },
         component: () => import('../views/manage-account/index.vue')
     },
