@@ -1,5 +1,6 @@
 import httpApi from '~/api/request'
 
+//category api>>>
 export function getAllCategory() {
     return httpApi({
         url: '/category/all',
@@ -18,6 +19,22 @@ export function addCategory(data: any) {
 export function deleteCategory(id: string) {
     return httpApi({
         url: `/category/${id}`,
+        method: "DELETE"
+    })
+}
+//category api<<<
+
+//list api>>>
+export function getAllPass() {
+    return httpApi({
+        url: '/news/allpass',
+        method: "GET"
+    })
+}
+
+export function deleteNew(id: string) {
+    return httpApi({
+        url: `/news/${id}`,
         method: "DELETE"
     })
 }
