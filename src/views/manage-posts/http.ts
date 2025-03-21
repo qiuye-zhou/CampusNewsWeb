@@ -70,4 +70,12 @@ export function addNew(data: NewModelType) {
         data
     })
 }
+
+export function updateNew(id: string, data: NewModelType) {
+    return httpApi({
+        url: `/news/${id}`,
+        method: "PATCH",
+        data
+    })
+}
 //edit api<<<

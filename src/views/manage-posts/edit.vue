@@ -16,7 +16,7 @@ import {
     NSelect
 } from 'naive-ui'
 
-import { getAllCategorySelect, getAllEditPass, getAllPendingPass, addNew, deleteNew } from './http'
+import { getAllCategorySelect, getAllEditPass, getAllPendingPass, addNew, deleteNew, updateNew } from './http'
 import { parseDate } from '~/utils/time'
 import { NewModelType } from './type'
 
@@ -39,6 +39,8 @@ const modelRef = ref<NewModelType>({
       text: ''
 })
 const showModal = ref(false)
+const updateShowModal = ref(false)
+const updateNewId = ref()
 
 const tabValue = ref(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,6 +51,7 @@ function cleanup() {
     modelRef.value.title = ''
     modelRef.value.typename = '默认名称'
     modelRef.value.detail = ''
+    modelRef.value.text = ''
     modelRef.value.text = ''
 }
 function handleCreate() {
@@ -63,7 +66,6 @@ function handleCreateConfirm(e: MouseEvent) {
     formRef.value?.validate((errors) => {
           if (!errors) {
             showModal.value = false
-            console.log(modelRef.value)
             addNew({ 
                 title: modelRef.value.title, 
                 typename: modelRef.value.typename, 
@@ -105,6 +107,40 @@ function handlePendingNewDelete(id: string, title: string) {
             }).catch(_err => {
                 message.success(`删除新闻${title}失败`)
             })
+          }
+    })
+}
+function handlePendingNewUpdate(id: string, newData: NewModelType) {
+    updateShowModal.value = true
+    updateNewId.value = id
+    console.log(id)
+    modelRef.value.title = newData.title
+    modelRef.value.typename = newData.typename
+    modelRef.value.detail = newData.detail
+    modelRef.value.text = newData.text
+}
+function handleUpdateCancel() {
+    updateShowModal.value = false
+    cleanup()
+}
+function handleUpdateConfirm(e: MouseEvent) {
+    e.preventDefault()
+    formRef.value?.validate((errors) => {
+          if (!errors) {
+            updateShowModal.value = false
+            updateNew(updateNewId.value, { 
+                title: modelRef.value.title, 
+                typename: modelRef.value.typename, 
+                detail: modelRef.value.detail, 
+                text: modelRef.value.text, 
+            }).then((_res) => {
+                message.success('更改成功')
+                updateListData()
+                cleanup()
+            })
+          }
+          else {
+            message.error('请按要求填写内容')
           }
     })
 }
@@ -158,6 +194,7 @@ onMounted(() => {
                             <td>{{ item.state }}</td>
                             <td>
                                 <n-button  strong secondary round type="error" @click="handlePendingNewDelete(item._id, item.title)">删除</n-button>
+                                <n-button  strong secondary round type="info" @click="handlePendingNewUpdate(item._id, item)">更改</n-button>
                             </td>
                         </tr>
                         <h1 v-else class="text-center text-red-400">暂无</h1>
@@ -223,6 +260,34 @@ onMounted(() => {
             <template #action>
                 <n-button :type="'warning'" @click="handleCreateCancel">取消</n-button>
                 <n-button :type="'success'" @click="handleCreateConfirm">创建</n-button>
+            </template>
+        </n-modal>
+        <n-modal v-model:show="updateShowModal" preset="dialog" title="Dialog">
+            <template #header>
+                <div>更改新闻</div>
+            </template>
+            <n-form ref="formRef" :model="modelRef" :rules="rules" autocomplete="off">
+                <n-form-item path="title" label="新闻名">
+                    <n-input v-model:value="modelRef.title" @keydown.enter.prevent />
+                </n-form-item>
+                <n-form-item path="typename" label="类别">
+                    <n-select
+                        v-model:value="modelRef.typename"
+                        placeholder="Select"
+                        :options="createData.options"
+                        @keydown.enter.prevent
+                    />
+                </n-form-item>
+                <n-form-item path="detail" label="描述">
+                    <n-input v-model:value="modelRef.detail" @keydown.enter.prevent />
+                </n-form-item>
+                <n-form-item path="text" label="新闻内容">
+                    <n-input v-model:value="modelRef.text" type="textarea" placeholder="输入新闻内容" />
+                </n-form-item>
+            </n-form>
+            <template #action>
+                <n-button :type="'warning'" @click="handleUpdateCancel">取消</n-button>
+                <n-button :type="'success'" @click="handleUpdateConfirm">更改</n-button>
             </template>
         </n-modal>
     </div>
