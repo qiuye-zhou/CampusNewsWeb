@@ -1,4 +1,5 @@
 import httpApi from '~/api/request'
+import { NewModelType } from './type'
 
 //category api>>>
 export function getAllCategory() {
@@ -38,3 +39,35 @@ export function deleteNew(id: string) {
         method: "DELETE"
     })
 }
+//list api<<<
+
+//edit api>>>
+export function getAllEditPass() {
+    return httpApi({
+        url: '/news/alleditpass',
+        method: "GET"
+    })
+}
+
+export function getAllPendingPass() {
+    return httpApi({
+        url: '/news/allpendingpass',
+        method: "GET"
+    })
+}
+
+export function getAllCategorySelect() {
+    return httpApi({
+        url: '/category/allselect',
+        method: "GET"
+    })
+}
+
+export function addNew(data: NewModelType) {
+    return httpApi({
+        url: '/news/add',
+        method: "POST",
+        data
+    })
+}
+//edit api<<<
