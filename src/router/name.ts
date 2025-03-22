@@ -11,7 +11,6 @@ export enum RouteName {
     EditCategory = 'edit-category',
 
     Note = 'note',
-    EditNote = 'edit-notes',
 
     Friend = 'friends',
 

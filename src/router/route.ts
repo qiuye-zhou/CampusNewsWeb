@@ -75,15 +75,6 @@ export const routeForMenuAdmin: Array<RouteRecordRaw> = [
                 },
                 component: () => import('../views/manage-examine/list.vue')
             },
-            {
-                path: 'edit',
-                name: RouteName.EditNote,
-                meta: {
-                    title: '已审核',
-                    icon: markRaw(PencilAltIcon)
-                },
-                component: () => import('../views/manage-examine/edit.vue')
-            },
         ]
     },
     {
