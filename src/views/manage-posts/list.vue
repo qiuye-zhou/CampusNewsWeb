@@ -60,10 +60,10 @@ onMounted(() => {
             </thead>
             <tbody>
                 <tr v-if="ListData.list.length > 0" v-for="item in ListData.list">
-                    <td>{{ item.title }}</td>
+                    <td class="text-wrap max-w-72">{{ item.title }}</td>
                     <td>{{ item.editname }}</td>
                     <td>{{ item.typename }}</td>
-                    <td>{{ item.detail ?? '暂无描述' }}</td>
+                    <td class="text-wrap max-w-72">{{ item.detail ?? '暂无描述' }}</td>
                     <td>{{ parseDate(item.created) }}</td>
                     <td>{{ item.browsenum }}</td>
                     <td>

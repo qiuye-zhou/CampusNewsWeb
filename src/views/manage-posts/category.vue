@@ -89,7 +89,7 @@ onMounted(() => {
             <tbody>
                 <tr v-if="categoryData.list.length > 0" v-for="item in categoryData.list">
                     <td>{{ item.name }}</td>
-                    <td>{{ item.description ?? '暂无描述' }}</td>
+                    <td class="text-wrap max-w-72">{{ item.description ?? '暂无描述' }}</td>
                     <td>{{ parseDate(item.created) }}</td>
                     <td>
                         <n-button  strong secondary round type="error" @click="handleCategoryDelete(item._id, item.name)">删除</n-button>

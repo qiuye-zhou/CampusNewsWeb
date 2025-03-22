@@ -187,9 +187,9 @@ onMounted(() => {
                     </thead>
                     <tbody>
                         <tr v-if="NewEditDataLit.pendingList.length > 0" v-for="item in NewEditDataLit.pendingList">
-                            <td>{{ item.title }}</td>
+                            <td class="text-wrap max-w-72">{{ item.title }}</td>
                             <td>{{ item.typename }}</td>
-                            <td>{{ item.detail }}</td>
+                            <td class="text-wrap max-w-72">{{ item.detail }}</td>
                             <td>{{ parseDate(item.created) }}</td>
                             <td>{{ item.state }}</td>
                             <td>
