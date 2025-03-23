@@ -18,6 +18,12 @@ const DataList = reactive({
     radomlits: [],
     recentlyLit: []
 })
+const midData = {
+    title: '',
+    typename: '',
+    detail: '',
+    _id: ''
+}
 
 onMounted(async () => {
     const configs = await Promise
@@ -28,6 +34,7 @@ onMounted(async () => {
     getrecently().then((res) => {
         DataList.recentlyLit = res.data
     })
+    console.log(DataList)
 })
 </script>
 
@@ -38,10 +45,12 @@ onMounted(async () => {
     >
         <Carousel/>
         <n-card title="最近" size="huge" header-style="border-width: 2px;" content-style="border-width: 2px;">
-            <NewCard v-for="item of DataList.recentlyLit" :data="item"/>
+            <NewCard v-if="DataList.recentlyLit.length > 0" v-for="item of DataList.recentlyLit" :data="item ?? midData"/>
+            <p v-else>暂无</p>
         </n-card>
         <n-card title="推荐" size="huge" header-style="border-width: 2px;" content-style="border-width: 2px;">
-            <NewCard v-for="item of DataList.radomlits" :data="item"/>
+            <NewCard v-if="DataList.radomlits.length > 0" v-for="item of DataList.radomlits" :data="item ?? midData"/>
+            <p v-else>暂无</p>
         </n-card>
     </div>
 </template>
