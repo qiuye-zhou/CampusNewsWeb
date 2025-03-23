@@ -34,7 +34,6 @@ onMounted(async () => {
     getrecently().then((res) => {
         DataList.recentlyLit = res.data
     })
-    console.log(DataList)
 })
 </script>
 
