@@ -118,37 +118,37 @@ export const routeForMenuAdmin: Array<RouteRecordRaw> = [
             }
         ]
     },
-    {
-        path: '/maintain',
-        name: RouteName.Maintain,
-        meta: {
-            title: '维护',
-            icon: markRaw(Maintain)
-        },
-        redirect: '/maintain/backup',
-        component: LayRouterView,
-        children: [
-            {
-                path: 'backup',
-                name: RouteName.Backup,
-                meta: {
-                    title: '备份',
-                    icon: markRaw(UndoAltIcon)
-                },
-                component: () => import('../views/maintain/backup.vue')
-            },
+    // {
+    //     path: '/maintain',
+    //     name: RouteName.Maintain,
+    //     meta: {
+    //         title: '维护',
+    //         icon: markRaw(Maintain)
+    //     },
+    //     redirect: '/maintain/backup',
+    //     component: LayRouterView,
+    //     children: [
+    //         {
+    //             path: 'backup',
+    //             name: RouteName.Backup,
+    //             meta: {
+    //                 title: '备份',
+    //                 icon: markRaw(UndoAltIcon)
+    //             },
+    //             component: () => import('../views/maintain/backup.vue')
+    //         },
 
-            {
-                path: 'log',
-                name: RouteName.Log,
-                meta: {
-                    title: '日志',
-                    icon: markRaw(LogIcon)
-                },
-                component: () => import('../views/maintain/log.vue')
-            }
-        ]
-    }
+    //         {
+    //             path: 'log',
+    //             name: RouteName.Log,
+    //             meta: {
+    //                 title: '日志',
+    //                 icon: markRaw(LogIcon)
+    //             },
+    //             component: () => import('../views/maintain/log.vue')
+    //         }
+    //     ]
+    // }
 ]
 
 //编辑menu

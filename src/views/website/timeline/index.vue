@@ -30,10 +30,10 @@ onMounted(async () => {
 
 <template>
     <div
-        class="w-full relative py-8 min-h-screen
+        class="w-full relative py-8 pl-72 min-h-screen
         flex items-center justify-center"
     >
-        <n-timeline size="large" class="flex justify-center items-center">
+        <n-timeline size="large" class="flex justify-center items-start">
             <n-timeline-item
                 v-for="item of DataList.timelineList"
                 type="info"
